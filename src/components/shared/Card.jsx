@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function Card({ children, reverse }) {
+function Card({ children, reverse }) { // use children prop for all shared components
   return (
     //we can do conditional style className={`card ${reverse && 'reverse'}`}
     //for reverse in card className
