@@ -63,6 +63,9 @@ header {
 .rating li,
 .num-display {
   position: relative;
+  display: flex; /* add flex for justify content in*/
+  align-items: center;
+  justify-content: center;
   background: #f4f4f4;
   width: 50px;
   height: 50px;
@@ -70,20 +73,19 @@ header {
   border-radius: 50%;
   font-size: 19px;
   border: 1px #eee solid;
-  display: flex; /* add flex for justify content in*/
-  align-items: center;
-  justify-content: center;
-  
   /* transition: 0.3s; */
 }
 
 .rating li label {
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   top: 50%;
   left: 50%;
   width: 50px;
   height: 50px;
-  padding: 10px;
+  /* padding: 10px; */
   border-radius: 50%;
   transform: translate(-50%, -50%);
   cursor: pointer;
@@ -100,7 +102,7 @@ header {
 }
 
 [type='radio']:checked ~ label {
-  background: #ff6a95;
+  background: #ff9966;
   color: #fff;
 }
 
@@ -164,7 +166,7 @@ input:focus {
 }
 
 .btn-secondary {
-  background: #ff6a95;
+  background: #ff9966;
 }
 
 .btn:hover {
