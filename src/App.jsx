@@ -28,27 +28,27 @@ function App() {
 
   return (
     <Router>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Header />
-              <div className="container">
+      <Header />
+      <div className="container">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
                 <FeedbackForm handleAdd={addFeedback} />
                 <FeedbackStats feedbackStat={feedback} />
                 <FeedbackList
                   feedback={feedback}
                   handleDelete={deleteFeedback}
                 />
-                <AboutIconLink/>
-              </div>
-            </>
-          }
-        ></Route>
-        <Route path="/about" element={<AboutPage />}/>
-        <Route path="*" element={<NotFound/>}/>
-      </Routes>
+              </>
+            }
+          ></Route>
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        <AboutIconLink />
+      </div>
     </Router>
   );
 }
