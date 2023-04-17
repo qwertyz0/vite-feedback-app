@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // HashRouter used for /#about
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  NavLink,
+} from "react-router-dom"; // HashRouter used for /#about
+import Card from "./components/shared/Card";
 import Header from "./components/Header";
 import FeedbackList from "./components/FeedbackList";
 import FeedbackData from "./data/Feedbackdata";
@@ -9,6 +15,7 @@ import FeedbackForm from "./components/FeedbackForm";
 import AboutPage from "./pages/AboutPage";
 import NotFound from "./pages/NotFound";
 import AboutIconLink from "./components/AboutIconLink";
+import Post from "./components/Post";
 
 function App() {
   const [feedback, setFeedback] = useState(FeedbackData);
@@ -25,30 +32,46 @@ function App() {
     setFeedback([newFeedback, ...feedback]);
     //console.log(newFeedback)
   };
-
   return (
     <Router>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Header />
-              <div className="container">
+      <Header />
+      <div className="container">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
                 <FeedbackForm handleAdd={addFeedback} />
                 <FeedbackStats feedbackStat={feedback} />
                 <FeedbackList
                   feedback={feedback}
                   handleDelete={deleteFeedback}
                 />
-                <AboutIconLink/>
-              </div>
-            </>
-          }
-        ></Route>
-        <Route path="/about" element={<AboutPage />}/>
-        <Route path="*" element={<NotFound/>}/>
-      </Routes>
+              </>
+            }
+          ></Route>
+          <Route path="/about" element={<AboutPage />} />
+          {/* <Route path="/post/:id/:name" element={<Post />} /> */}
+          <Route path="/post/*" element={<Post />} /> {/*add * for showing elements in /show after */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        {/* <Card>
+          //Create NavLink same as Link but with active class in link you are
+          <NavLink
+            className={(navData) => (navData.isActive ? "active" : "none")}
+            to="/"
+          >
+            Home
+          </NavLink>
+          <NavLink
+            className={(navData) => (navData.isActive ? "active" : "none")}
+            to="/about"
+          >
+            About
+          </NavLink>
+        </Card> */}
+        <AboutIconLink />
+      </div>
     </Router>
   );
 }
