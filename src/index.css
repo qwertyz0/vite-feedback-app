@@ -33,12 +33,36 @@ header {
   margin-bottom: 30px;
 }
 
+.not-found{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 40vh;
+}
+
+.not-found h1{
+  font-size: 50px;
+  text-decoration: underline;
+}
+.not-found p{
+  font-size: 25px;
+  text-decoration: underline;
+  color: white;
+}
+
+.text-link {
+  color: inherit;
+  text-decoration: inherit;
+}
+
 .card {
   background-color: #fff;
   color: #333;
   border-radius: 15px;
   padding: 40px 50px;
-  margin: 20px 0;
+  margin: 20px;
   position: relative;
 }
 
@@ -194,8 +218,11 @@ input:focus {
 /* FIX: Remove position: absolute to keep about icon at the bottom of the
  * document */
 .about-link {
+  position: absolute;
   display: flex;
   justify-content: flex-end;
+  padding-bottom: 20px;
+  margin-left: 85vw;
 }
 
 /* FIX: Remove position: absolute to keep about icon at the bottom of the
@@ -205,8 +232,8 @@ input:focus {
   cursor: pointer;
 }
 
-.about-link a:hover {
-  color: #ff6a95;
+.about-link :hover {
+  color: #ff9966;;
 }
 
 .about h1 {
