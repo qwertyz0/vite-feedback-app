@@ -1,9 +1,16 @@
 import React from "react";
+import { useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion"; //add fade animation
 import FeedbackItem from "./FeedbackItem";
-import PropTypes from "prop-types";
+import FeedbackContext from "../context/FeedbackContext";
 
-function FeedbackList({ feedback, handleDelete }) {
+function FeedbackList({ handleDelete }) {
+  // if use context, dont need feedback props anymore
+  //we pass it from context api
+
+  const { feedback } = useContext(FeedbackContext); //pass context from global api FeedbackContext
+  //and use "feedback" state that created in context file
+
   if (!feedback || feedback.length === 0) {
     return <p>No data yet ...</p>;
   }
@@ -12,21 +19,21 @@ function FeedbackList({ feedback, handleDelete }) {
     <div className="feedback-list">
       <AnimatePresence>
         {feedback.map((item) => (
-            <motion.div //fades in and out animation
+          <motion.div //fades in and out animation
+            key={item.id}
+            initial={{ opacity: 0 }} //start like invisible
+            animate={{ opacity: 1 }} // animate full visible
+            exit={{ opacity: 0 }} //out insisible
+          >
+            <FeedbackItem
               key={item.id}
-              initial={{ opacity: 0 }} //start like invisible 
-              animate={{ opacity: 1 }}// animate full visible
-              exit={{ opacity: 0 }}//out insisible
-            >
-              <FeedbackItem
-                key={item.id}
-                id={item.id}
-                rating={item.rating}
-                text={item.text}
-                handleDelete={handleDelete}
-              />
-            </motion.div>
-          ))}
+              id={item.id}
+              rating={item.rating}
+              text={item.text}
+              handleDelete={handleDelete}
+            />
+          </motion.div>
+        ))}
       </AnimatePresence>
     </div>
   );
@@ -49,19 +56,5 @@ function FeedbackList({ feedback, handleDelete }) {
   // </div>
   // );
 }
-
-FeedbackList.propTypes = {
-  feedback: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.oneOfType([
-        // add two types for id (bcs uuidv4 make string id)
-        PropTypes.number.isRequired,
-        PropTypes.string.isRequired,
-      ]),
-      text: PropTypes.string.isRequired,
-      rating: PropTypes.number.isRequired,
-    })
-  ),
-};
 
 export default FeedbackList;
