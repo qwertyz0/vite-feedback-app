@@ -1,7 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import FeedbackContext from "../context/FeedbackContext";
 
 function RatingSelect({ select }) {
   const [selected, setSelected] = useState(10); //get value from rating buttons 1-10
+
+  const { feedbackEdit } = useContext(FeedbackContext); // context for display rating when edit
+  useEffect(() => {
+    setSelected(feedbackEdit.item.rating); // show rating on display when edit
+  }, [feedbackEdit]);
 
   const handleChange = (e) => {
     // target - html elemet that trigger event (return information exact place where click (in button - border, number, button etc)),

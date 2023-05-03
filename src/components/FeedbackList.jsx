@@ -29,7 +29,8 @@ function FeedbackList() {
               key={item.id}
               id={item.id}
               rating={item.rating}
-              text={item.text}/>
+              text={item.text}
+              item={item}/>
           </motion.div>
         ))}
       </AnimatePresence>

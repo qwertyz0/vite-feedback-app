@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Card from "./shared/Card";
 import Button from "./shared/Button";
 import RatingSelect from "./RatingSelect";
@@ -10,7 +10,19 @@ function FeedbackForm() {
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState(""); // alert message to type more then 10 words
 
-  const {addFeedback} = useContext(FeedbackContext); // context hook for pass function in component
+  const {
+    addFeedback,
+    feedbackEdit /*this is object with boolean*/,
+    updateFeedback,
+  } = useContext(FeedbackContext); // context hook for pass function in component
+
+  useEffect(() => { // move editing text, reting to form field
+    if (feedbackEdit.edit === true) {
+      setBtnDisabled(false);
+      setText(feedbackEdit.item.text);
+      setRating(feedbackEdit.item.rating);
+    }
+  }, [feedbackEdit]);// useEffect hook work when used feedbackEdit object
 
   /* logic for send button and input text */
   // got value from input and set it to text from useState hook.
@@ -35,11 +47,20 @@ function FeedbackForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (text.trim().length > 10) {
-      const newFeedback = { // create object with data coming from form
+      const newFeedback = {
+        // create object with data coming from form
         text: text,
         rating: rating,
       };
-      addFeedback(newFeedback); //function from useContext to set new text and rating
+
+      if (feedbackEdit.edit === true) {
+        updateFeedback(feedbackEdit.item.id, newFeedback);
+      } else {
+        addFeedback(newFeedback); //function from useContext to set new text and rating
+      }
+
+      setBtnDisabled(true);
+      setRating(10);
       setText("");
     }
   };
