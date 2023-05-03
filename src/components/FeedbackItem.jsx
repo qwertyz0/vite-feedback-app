@@ -1,13 +1,17 @@
 import { FaTimes } from "react-icons/fa"; //importing icons from modeure Font Awesome
-import React, { useState } from "react";
+import React, {useContext} from "react";
 import Card from "./shared/Card";
+import FeedbackContext from "../context/FeedbackContext";
 
-function FeedbackItem({ rating, text, handleDelete, id }) {
+function FeedbackItem({ rating, text, id }) {
+
+  const {deleteFeedback} = useContext(FeedbackContext)
+  
   return (
     <Card>
       <div className="num-display">{rating}</div>
       <button
-        onClick={() => handleDelete(id)} // передача id которое не будет возвращатся
+        onClick={() => deleteFeedback(id)} // передача id которое не будет возвращатся
         // в преобразованом массиве от .filter
         className="close"
       >

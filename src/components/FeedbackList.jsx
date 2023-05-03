@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion"; //add fade animation
 import FeedbackItem from "./FeedbackItem";
 import FeedbackContext from "../context/FeedbackContext";
 
-function FeedbackList({ handleDelete }) {
+function FeedbackList() {
   // if use context, dont need feedback props anymore
   //we pass it from context api
 
@@ -29,9 +29,7 @@ function FeedbackList({ handleDelete }) {
               key={item.id}
               id={item.id}
               rating={item.rating}
-              text={item.text}
-              handleDelete={handleDelete}
-            />
+              text={item.text}/>
           </motion.div>
         ))}
       </AnimatePresence>

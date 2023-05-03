@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Card from "./shared/Card";
 import Button from "./shared/Button";
 import RatingSelect from "./RatingSelect";
+import FeedbackContext from "../context/FeedbackContext";
 
-function FeedbackForm({ handleAdd }) {
+function FeedbackForm() {
   const [text, setText] = useState("");
   const [rating, setRating] = useState(10); // pass throw props selected rating
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [message, setMessage] = useState(""); // alert message to type more then 10 words
+
+  const {addFeedback} = useContext(FeedbackContext); // context hook for pass function in component
 
   /* logic for send button and input text */
   // got value from input and set it to text from useState hook.
@@ -36,7 +39,7 @@ function FeedbackForm({ handleAdd }) {
         text: text,
         rating: rating,
       };
-      handleAdd(newFeedback); // prop function from App.jsx to get text and rating
+      addFeedback(newFeedback); //function from useContext to set new text and rating
       setText("");
     }
   };
