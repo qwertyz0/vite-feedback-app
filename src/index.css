@@ -218,11 +218,11 @@ input:focus {
 /* FIX: Remove position: absolute to keep about icon at the bottom of the
  * document */
 .about-link {
-  position: absolute;
+  /* sposition: absolute; */
   display: flex;
   justify-content: flex-end;
-  padding-bottom: 20px;
-  margin-left: 85vw;
+  /* padding-bottom: 20px;
+  margin-left: 85vw; */
 }
 
 /* FIX: Remove position: absolute to keep about icon at the bottom of the
@@ -244,7 +244,7 @@ input:focus {
   margin: 10px 0;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 750px) {
   .rating li {
     margin: 10px 3px;
   }
