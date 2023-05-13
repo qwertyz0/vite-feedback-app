@@ -8,7 +8,7 @@ const FeedbackContext = createContext();
 
 /* wrap all components as children in App.jsx */
 export const FeedbackProvider = ({ children }) => {
-  const [isLoading, setIsLoading] = useState(true) // 
+  const [isLoading, setIsLoading] = useState(true) //true until we make the request to server
   // delete hard coded feedback and will use API db
   const [feedback, setFeedback] = useState([]);
 
