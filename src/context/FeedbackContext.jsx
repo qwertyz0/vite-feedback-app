@@ -14,11 +14,13 @@ export const FeedbackProvider = ({ children }) => {
 
   // render data from server when app start
   useEffect(() => {
-    fetchfeedback()
+    fetchFeedback()
   }, []);
 
-  //fetch data from server
-  const fetchfeedback = async () => {
+
+
+  //Fetch data from server
+  const fetchFeedback = async () => {
     //sort by id using json server
     const response = await fetch(`/feedback?_sort=id&_order=desc`); //delete url, this is proxy in pakage.json
     const data = await response.json();
@@ -40,14 +42,24 @@ export const FeedbackProvider = ({ children }) => {
     });
   };
 
-  // update feedbackitem (functionality of submit button in form when editing text)
-  const updateFeedback = (idOfEdit, updItem) => {
+  // Update feedbackitem (functionality of submit button in form when editing text)
+  const updateFeedback = async (idOfEdit, updItem) => {
+
+    const response = await fetch(`/feedback/${idOfEdit}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updItem)
+    })
+
+    const updData = response.json()
+
     setFeedback(
       feedback.map((item) =>
-        item.id === idOfEdit ? { ...item, ...updItem } : item
+        item.id === idOfEdit ? { ...item, ...updData } : item
       )
     );
-
     // FIX: this fixes being able to add a feedback after editing
     setFeedbackEdit({
       item: {},
@@ -55,9 +67,14 @@ export const FeedbackProvider = ({ children }) => {
     });
   };
 
-  const deleteFeedback = (id) => {
+  // Delete feedback
+  const deleteFeedback = async (id) => {
     //function to delete feedback (used context)
     if (window.confirm("Are you sure to delete this feedback ?")) {
+      //function to delete item on server side
+      await fetch(`/feedback/${id}`, {
+        method: 'DELETE'
+      })
       setFeedback(feedback.filter((item) => item.id !== id));
     }
   };
@@ -70,7 +87,7 @@ export const FeedbackProvider = ({ children }) => {
       headers:{
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(newFeedback), //add body that add new comments
+      body: JSON.stringify(newFeedback), //add body that add new comments and JSON.stringify transformation passsed object in json format
     })
 
     const data = await response.json() //new data like old "newFeedback"
