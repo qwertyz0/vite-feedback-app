@@ -3,19 +3,24 @@ import { useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion"; //add fade animation
 import FeedbackItem from "./FeedbackItem";
 import FeedbackContext from "../context/FeedbackContext";
+import Spinner from './shared/Spinner'
 
 function FeedbackList() {
   // if use context, dont need feedback props anymore
   //we pass it from context api
 
-  const { feedback } = useContext(FeedbackContext); //pass context from global api FeedbackContext
+  const { feedback, isLoading } = useContext(FeedbackContext); //pass context from global api FeedbackContext
   //and use "feedback" state that created in context file
+  // isLoading boolean state
 
-  if (!feedback || feedback.length === 0) {
+  if (!isLoading && (!feedback || feedback.length === 0)) {
     return <p>No data yet ...</p>;
   }
 
-  return (
+  // make cheking for loading data to return feedbacks
+  return isLoading ? (
+    <Spinner/> //spinner gif if data loading
+  ) : (
     <div className="feedback-list">
       <AnimatePresence>
         {feedback.map((item) => (
@@ -30,7 +35,8 @@ function FeedbackList() {
               id={item.id}
               rating={item.rating}
               text={item.text}
-              item={item}/>
+              item={item}
+            />
           </motion.div>
         ))}
       </AnimatePresence>
